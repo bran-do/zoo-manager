@@ -11,8 +11,6 @@ const allAnimalsCount = () => {
   return finalCount;
 };
 
-console.log(allAnimalsCount());
-
 const countAnimals = (animal) => {
   if (animal === undefined) {
     return allAnimalsCount();
