@@ -7,7 +7,6 @@ function getEmployeeByName(employeeName) {
     employee.firstName === employeeName
     || employee.lastName === employeeName);
 }
-
 const getEmployeeById = (employeeId) => employees.find((employee) => employee.id === employeeId);
 
 const getEmployeeByNameOrId = (object) => {
