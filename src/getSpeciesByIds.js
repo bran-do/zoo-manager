@@ -1,7 +1,4 @@
-/*
-  A função `getSpeciesByids` retorna todas as espécies do `zoo_data` que correspondem aos `id`s passados como parâmetro.
-  O parâmetro ser tanto um único `id` como um array de `id`.
-*/
+// A função `getSpeciesByids` retorna todas as espécies da base de dados que correspondam ao `id` ou `id`s passados como parâmetro.
 
 const data = require('../data/zoo_data');
 
