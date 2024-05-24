@@ -1,29 +1,31 @@
-const data = require('../data/zoo_data');
+/*
+  A função `calculateEntry` é responsável por calcular o valor total dos ingressos ao zoológico considerando a faixa etária do visitante.
+  Ela recebe como parâmetro um array de objetos { name: _string_, age: _number_ };
+  - O valor dos ingressos aqui está definido como:
+    - 20.99 para crianças;
+    - 49.99 para adultos;
+    - 24.99 para idosos.
+*/
 
 const countEntrants = (entrants) => {
-  const childAmount = entrants.filter((entrant) => entrant.age < 18);
-  const adultAmount = entrants.filter((entrant) => entrant.age >= 18 && entrant.age < 50);
-  const seniorAmount = entrants.filter((entrant) => entrant.age >= 50);
-  const countByAge = {
-    child: childAmount.length,
-    adult: adultAmount.length,
-    senior: seniorAmount.length,
-  };
-  return countByAge;
+  const child = entrants.filter((entrant) => entrant.age < 18).length;
+  const adult = entrants.filter((entrant) => entrant.age >= 18 && entrant.age < 50).length;
+  const senior = entrants.filter((entrant) => entrant.age >= 50).length;
+
+  return { child, adult, senior };
 };
 
 const calculateEntry = (entrants) => {
-  if (entrants === [] || entrants === undefined) {
-    return 0;
-  }
-  const amountArray = [];
-  amountArray.push(countEntrants(entrants).child * 20.99);
-  amountArray.push(countEntrants(entrants).adult * 49.99);
-  amountArray.push(countEntrants(entrants).senior * 24.99);
+  if (!entrants) { return 0; }
 
-  const finalAmount = amountArray.reduce((acc, curr) => acc + curr);
+  const { child, adult, senior } = countEntrants(entrants);
+  const expenses = [
+    child * 20.99,
+    adult * 49.99,
+    senior * 24.99,
+  ];
 
-  return finalAmount;
+  return expenses.reduce((acc, curr) => acc + curr);
 };
 
 module.exports = { calculateEntry, countEntrants };
