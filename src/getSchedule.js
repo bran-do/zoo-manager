@@ -14,7 +14,7 @@ const weekdays = Object.keys(hours);
 
 // Buscando os dias da semana em que uma determinada espécie estará em exibição:
 const getSpeciesAvailability = (speciesName) => {
-  const { availability } = species.find((dataSpecies) => dataSpecies.name === speciesName);
+  const { availability } = species.find(({ name }) => name === speciesName);
   return availability;
 };
 
