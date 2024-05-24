@@ -6,10 +6,10 @@ const data = require('../data/zoo_data');
 
 const getSpeciesByIds = (...ids) => {
   if (ids.length === 1) {
-    return data.species.filter((species) => species.id === ids[0]);
+    return data.species.filter(({ id }) => id === ids[0]);
   }
 
-  return data.species.filter((species, index) => species.id === ids[index]);
+  return data.species.filter(({ id }, index) => id === ids[index]);
 };
 
 module.exports = getSpeciesByIds;
