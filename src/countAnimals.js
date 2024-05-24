@@ -1,26 +1,35 @@
+/*
+  A função `countAnimals` recebe uma espécie como parâmetro um e retorna a contagem de animais dessa espécie na base de dados.
+  - Opcionalmente, é possível especificar um sexo ('male' ou 'female') para a contagem;
+  - Caso a função seja chamada sem parâmetros, ela retornará uma lista de todas espécies e suas respectivas contagens de animais.
+    - Essa contagem total é feita através da função `countAllAnimals`.
+
+  Exemplos de parâmetros: { species: 'lion', sex: 'female' }; { species: 'penguin' };
+*/
+
 const data = require('../data/zoo_data');
 
 const names = data.species.map((species) => species.name);
-const amountOfSpecies = data.species.map((species) => species.residents.length);
+const residentsAmount = data.species.map((species) => species.residents.length);
 
-const allAnimalsCount = () => {
+const countAllAnimals = () => {
   const finalCount = {};
   for (let i = 0; i < names.length; i += 1) {
-    finalCount[names[i]] = amountOfSpecies[i];
+    finalCount[names[i]] = residentsAmount[i];
   }
   return finalCount;
 };
 
-const countAnimals = (animal) => {
-  if (animal === undefined) {
-    return allAnimalsCount();
-  }
-  const foundSpecies = data.species.find((species) => species.name === animal.species);
-  if (Object.keys(animal).length === 1) {
-    return foundSpecies.residents.length;
-  }
-  const foundSpeciesSex = foundSpecies.residents.filter((species) => species.sex === animal.sex);
-  return foundSpeciesSex.length;
+const countAnimals = ({ species, sex = undefined } = {}) => {
+  if (!species) { return countAllAnimals(); }
+
+  const foundSpecies = data.species.find((dataSpecies) => dataSpecies.name === species);
+  const { residents } = foundSpecies;
+
+  if (!sex) { return residents.length; }
+
+  const residentsBySex = residents.filter((resident) => resident.sex === sex);
+  return residentsBySex.length;
 };
 
 module.exports = countAnimals;
