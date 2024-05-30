@@ -23,7 +23,7 @@ const getOldestFromFirstSpecies = (employeeId) => {
   // Buscando as informações completas sobre o animal mais velho:
   const oldest = residents.find(({ age }) => age === Math.max(...ages));
 
-  // Retornando apenas um array com os valores de nome, sexo e idade do animal mais velho:
+  // Retornando um array com os valores de nome, sexo e idade do animal mais velho:
   return Object.values(oldest);
 };
 
