@@ -15,7 +15,14 @@ const getSpeciesById = (speciesId) => species.find(({ id }) => id === speciesId)
 
 const getSpeciesByName = (speciesName) => species.find(({ name }) => name === speciesName);
 
-const getResidentsBySex = (residentList, genre) => residentList.filter(({ sex }) => sex === genre);
+const getSpeciesByLocation = (zooLocation) => { // Retorno: ['lions', 'giraffes']
+  const result = species.filter(({ location }) => location === zooLocation);
+  return result.map(({ name }) => name);
+};
+
+const getResidentsNames = (residentList) => residentList.map(({ name }) => name);
+
+const filterResidentsBySex = (residents, genre) => residents.filter(({ sex }) => sex === genre);
 
 module.exports = {
   getEmployeeById,
@@ -23,5 +30,7 @@ module.exports = {
   getSpeciesNames,
   getSpeciesById,
   getSpeciesByName,
-  getResidentsBySex,
+  getSpeciesByLocation,
+  getResidentsNames,
+  filterResidentsBySex,
 };

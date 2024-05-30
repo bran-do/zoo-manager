@@ -10,36 +10,31 @@
   Caso a função não receba nenhum parâmetro, ela retorna o nome das espécies disponíveis em cada área.
 */
 
-const data = require('../data/zoo_data');
+const {
+  getSpeciesByName,
+  getSpeciesByLocation,
+  getResidentsNames,
+  filterResidentsBySex,
+} = require('./utils');
 
-const { species } = data;
 const locations = ['NE', 'NW', 'SE', 'SW'];
-
-const getSpeciesInLocation = (zooLocation) => { // Retorno: ['lions', 'giraffes']
-  const result = species.filter(({ location }) => location === zooLocation);
-  return result.map(({ name }) => name);
-};
 
 const getSpeciesInAllLocations = () => { // Retorno: { NE: ['lions', 'giraffes'], NW: ['tigers', 'bears']}
   const result = {};
 
   locations.forEach((location) => {
-    result[location] = getSpeciesInLocation(location);
+    result[location] = getSpeciesByLocation(location);
   });
 
   return result;
 };
 
-const getResidentsNames = (residents) => residents.map(({ name }) => name);
-
-const filterResidentsByGenre = (residents, genre) => residents.filter(({ sex }) => sex === genre);
-
-const getResidents = (speciesName, sorted = false, genre = false) => { // Retorno: ['Dee', 'Faustino'];
-  const { residents } = species.find(({ name }) => name === speciesName);
+const getResidents = (species, sorted = false, genre = false) => { // Retorno: ['Dee', 'Faustino'];
+  const { residents } = getSpeciesByName(species);
   let result;
 
   if (genre) {
-    result = getResidentsNames(filterResidentsByGenre(residents, genre));
+    result = getResidentsNames(filterResidentsBySex(residents, genre));
   } else {
     result = getResidentsNames(residents);
   }
@@ -56,23 +51,20 @@ const getResidentsInAllLocations = (sorted = false, genre = false) => { // Retor
   locations.forEach((location) => {
     const speciesThere = locationsSpecies[location];
 
-    speciesThere.forEach((speciesName) => {
-      const residents = getResidents(speciesName, sorted, genre);
+    speciesThere.forEach((species) => {
+      const residents = getResidents(species, sorted, genre);
       result[location] = [
-        ...result[location], { [`${speciesName}`]: residents },
+        ...result[location], { [`${species}`]: residents },
       ];
     });
   });
 
   return result;
 };
-const getAnimalMap = (options) => { // Options: { includeNames: _bool_, sorted: _bool_, sex: 'male' || 'female' }
-  if (!options) { return getSpeciesInAllLocations(); }
 
-  const { includeNames, sorted, sex } = options;
-  return includeNames
+const getAnimalMap = ({ includeNames, sorted, sex } = {}) => // Options: { includeNames: _bool_, sorted: _bool_, sex: 'male' || 'female' }
+  (includeNames
     ? getResidentsInAllLocations(sorted, sex)
-    : getSpeciesInAllLocations();
-};
+    : getSpeciesInAllLocations());
 
 module.exports = getAnimalMap;
