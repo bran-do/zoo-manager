@@ -5,17 +5,15 @@
     - Exemplo: [ 'Shu', 'female', 19 ]
 */
 
-const data = require('../data/zoo_data');
-
-const { employees, species } = data;
+const { getEmployeeById, getSpeciesById } = require('./utils');
 
 const getOldestFromFirstSpecies = (employeeId) => {
   // Encontrando a pessoa colaboradora e a primeira espécie pela qual ela é responsável:
-  const employee = employees.find(({ id }) => id === employeeId);
+  const employee = getEmployeeById(employeeId);
   const speciesId = employee.responsibleFor[0];
 
   // Encontrando a lista de animais dessa espécie:
-  const { residents } = species.find(({ id }) => id === speciesId);
+  const { residents } = getSpeciesById(speciesId);
 
   // Mapeando a idade de todos os animais dessa lista:
   const ages = residents.map(({ age }) => age);

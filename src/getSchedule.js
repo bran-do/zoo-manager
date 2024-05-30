@@ -8,8 +8,9 @@
 */
 
 const { species, hours } = require('../data/zoo_data');
-const weekdays = Object.keys(hours);
 const { getSpeciesNames, getSpeciesByName } = require('./utils');
+
+const weekdays = Object.keys(hours);
 
 // Buscando os dias da semana em que uma determinada espécie estará em exibição:
 const getSpeciesAvailability = (speciesName) => {
