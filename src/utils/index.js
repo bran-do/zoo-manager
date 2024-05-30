@@ -13,6 +13,10 @@ const getSpeciesNames = () => species.map(({ name }) => name);
 
 const getSpeciesById = (speciesId) => species.find(({ id }) => id === speciesId);
 
+const getSpeciesByIds = (...ids) => (ids.length === 1
+  ? species.filter(({ id }) => id === ids[0])
+  : species.filter(({ id }, index) => id === ids[index]));
+
 const getSpeciesByName = (speciesName) => species.find(({ name }) => name === speciesName);
 
 const getSpeciesByLocation = (zooLocation) => { // Retorno: ['lions', 'giraffes']
@@ -29,6 +33,7 @@ module.exports = {
   getEmployeeByName,
   getSpeciesNames,
   getSpeciesById,
+  getSpeciesByIds,
   getSpeciesByName,
   getSpeciesByLocation,
   getResidentsNames,
