@@ -6,6 +6,8 @@
       sorted: valor booleano; que permite ordenar a lista de residentes alfabeticamente,
       sex: 'male' ou 'female'; que permite obter apenas os residentes de um determinado sexo.
     }
+  
+  Caso a função não receba nenhum parâmetro, ela retorna o nome das espécies disponíveis em cada área.
 */
 
 const data = require('../data/zoo_data');
