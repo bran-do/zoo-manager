@@ -7,12 +7,15 @@ const getEmployeeByName = (name) => (name
     firstName === name || lastName === name)
   : {});
 
+const getSpeciesNames = () => species.map(({ name }) => name);
+
 const getSpeciesByName = (speciesName) => species.find(({ name }) => name === speciesName);
 
 const getResidentsBySex = (residentList, genre) => residentList.filter(({ sex }) => sex === genre);
 
 module.exports = {
   getEmployeeByName,
+  getSpeciesNames,
   getSpeciesByName,
   getResidentsBySex,
 };

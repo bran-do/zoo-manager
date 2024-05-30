@@ -7,14 +7,13 @@
   As explicações das funções auxiliares estão abaixo.
 */
 
-const data = require('../data/zoo_data');
-
-const { species, hours } = data;
+const { species, hours } = require('../data/zoo_data');
 const weekdays = Object.keys(hours);
+const { getSpeciesNames, getSpeciesByName } = require('./utils');
 
 // Buscando os dias da semana em que uma determinada espécie estará em exibição:
 const getSpeciesAvailability = (speciesName) => {
-  const { availability } = species.find(({ name }) => name === speciesName);
+  const { availability } = getSpeciesByName(speciesName);
   return availability;
 };
 
@@ -56,7 +55,7 @@ const getWeeklySchedule = () => {
 
 // Função principal:
 const getSchedule = (scheduleTarget) => {
-  const speciesNames = species.map(({ name }) => name);
+  const speciesNames = getSpeciesNames();
 
   if (speciesNames.includes(scheduleTarget)) {
     return getSpeciesAvailability(scheduleTarget);
