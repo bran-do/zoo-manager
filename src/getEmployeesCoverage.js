@@ -12,15 +12,12 @@
   Caso chamada sem parâmetros, a função retorna uma lista de objetos iguais a esse, um para cada funcionário do zoológico.
 */
 
-const data = require('../data/zoo_data');
-
-const { employees, species } = data;
-
-function getEmployeeByName(employeeName) {
-  return employees.find(({ firstName, lastName }) =>
-    firstName === employeeName || lastName === employeeName);
-}
-const getEmployeeById = (employeeId) => employees.find(({ id }) => id === employeeId);
+const { employees } = require('../data/zoo_data');
+const {
+  getEmployeeByName,
+  getEmployeeById,
+  getSpeciesById,
+} = require('./utils');
 
 const getEmployeeByNameOrId = (nameOrId) => {
   if ('name' in nameOrId) { return getEmployeeByName(nameOrId.name); }
@@ -28,12 +25,12 @@ const getEmployeeByNameOrId = (nameOrId) => {
 };
 
 const getSpeciesLocation = (speciesId) => {
-  const { location } = species.find(({ id }) => id === speciesId);
+  const { location } = getSpeciesById(speciesId);
   return location;
 };
 
 const getSpeciesName = (speciesId) => {
-  const { name } = species.find(({ id }) => id === speciesId);
+  const { name } = getSpeciesById(speciesId);
   return name;
 };
 
@@ -54,9 +51,8 @@ const singleEmployeeCoverage = (nameOrId) => {
   };
 };
 
-const getEmployeesCoverage = (nameOrId) => {
-  if (nameOrId) { return singleEmployeeCoverage(nameOrId); }
-  return employees.map((employee) => singleEmployeeCoverage(employee));
-};
+const getEmployeesCoverage = (nameOrId) => (nameOrId
+  ? singleEmployeeCoverage(nameOrId)
+  : employees.map((employee) => singleEmployeeCoverage(employee)));
 
 module.exports = getEmployeesCoverage;
