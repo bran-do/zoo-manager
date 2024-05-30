@@ -4,7 +4,7 @@
   O valor dos ingressos por faixa etária está na base de dados.
 */
 
-const data = require('../data/zoo_data');
+const { prices } = require('../data/zoo_data');
 
 const countEntrants = (entrants) => {
   const child = entrants.filter(({ age }) => age < 18).length;
@@ -18,7 +18,6 @@ const calculateEntry = (entrants) => {
   if (!entrants) { return 0; }
 
   const { child, adult, senior } = countEntrants(entrants);
-  const { prices } = data;
   const expenses = [
     child * prices.child,
     adult * prices.adult,

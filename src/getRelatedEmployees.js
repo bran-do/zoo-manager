@@ -3,9 +3,7 @@
   Caso a pessoa com esse `id` não seja gerente, a função lança um erro informando tal -- essa verificação é feita pela função `isManager`.
 */
 
-const data = require('../data/zoo_data');
-
-const { employees } = data;
+const { employees } = require('../data/zoo_data');
 
 const isManager = (id) => employees.some(({ managers }) => managers.includes(id));
 

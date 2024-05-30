@@ -3,9 +3,7 @@
   Idealmente, por conta do formato da base de dados, o parâmetro deve ser uma string.
 */
 
-const data = require('../data/zoo_data');
-
-const { employees } = data;
+const { employees } = require('../data/zoo_data');
 
 const getEmployeeByName = (name) => (name
   ? employees.find(({ firstName, lastName }) =>

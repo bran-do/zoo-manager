@@ -8,7 +8,7 @@
 */
 
 const data = require('../data/zoo_data');
-const { getSpeciesByName, getResidentsBySex } = require('./utils');
+const { getSpeciesByName, filterResidentsBySex } = require('./utils');
 
 const countAllAnimals = () => {
   let finalCount;
@@ -25,7 +25,7 @@ const countAnimals = ({ species, sex = undefined } = {}) => {
 
   if (!sex) { return residents.length; }
 
-  const { length } = getResidentsBySex(residents, sex);
+  const { length } = filterResidentsBySex(residents, sex);
   return length;
 };
 
